@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:navigation/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
+import 'cart-bloc.dart';
 import 'cart.dart';
 import 'inventory.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => ShoppingCartProvider(),
-      child: const MyApp(),
-    ),
+      BlocProvider(
+        create: (create) => ShoppingCartBloc(),
+        child: MyApp(),
+      ),
   );
 }
 

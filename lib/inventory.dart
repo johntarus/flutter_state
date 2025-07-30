@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:navigation/provider.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:navigation/cart-bloc.dart';
 
 class Item {
   final String name;
@@ -22,8 +22,8 @@ const Inventory({super.key});
 
   @override
   Widget build(BuildContext context) {
-   return Consumer<ShoppingCartProvider>(builder:
-   (BuildContext context, ShoppingCartProvider cartProvider, Widget? child){
+   return BlocBuilder<ShoppingCartBloc, ShoppingCartState>(builder:
+   (BuildContext context, ShoppingCartState state){
     return ListView(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
@@ -39,7 +39,7 @@ const Inventory({super.key});
               trailing: IconButton(
                 icon: const Icon(CupertinoIcons.add_circled),
                 onPressed: () {
-                  cartProvider.addItem(item);
+                  context.read<ShoppingCartBloc>().add(AddItemToCart(item: item));
                   print('Item added to cart: ${item.name}');
                 },
               ),
