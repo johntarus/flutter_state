@@ -1,36 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:navigation/inherited-widget.dart';
+import 'package:navigation/provider.dart';
+import 'package:provider/provider.dart';
 
 import 'cart.dart';
 import 'inventory.dart';
 
-class Item {
-  final String name;
-  final double cost;
-
-  Item({required this.name, required this.cost});
-}
-
-final List<Item> inventory = [
-  Item(name: 'Item 1', cost: 10.0),
-  Item(name: 'Item 2', cost: 20.0),
-  Item(name: 'Item 3', cost: 30.0),
-  Item(name: 'shoe', cost: 200),
-];
-
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ShoppingCartProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatefulWidget {
+
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
+  // @override
+  // State<MyApp> createState() => _MyAppState();
+// }
 
-class _MyAppState extends State<MyApp> {
-  List<Item> _itemsInCart = [];
+// class _MyAppState extends State<MyApp> {
+//   List<Item> _itemsInCart = [];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -43,23 +36,20 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Ecommerce'),
         ),
         body: Padding(padding: const EdgeInsets.all(8.0),
-        child: ShoppingCartInheritedWidget(
-          itemsInCart: _itemsInCart,
-          onListChanged: (List<Item> items) =>  onCartUpdated,
           child: ListView(
-            children: [
-              Inventory(onCartUpdated),
-              ShoppingCart(onCartUpdated),
+            children: const[
+              Inventory(),
+              ShoppingCart(),
             ],
           ),
-        ),),
+        ),
       ),
     );
   }
 
-  void onCartUpdated(List<Item> items) {
-    setState(() {
-      _itemsInCart = items;
-    });
-  }
+// void onCartUpdated(List<Item> items) {
+//   setState(() {
+//     _itemsInCart = items;
+//   });
+// }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:navigation/main.dart';
+import 'inventory.dart';
 
 class ShoppingCartInheritedWidget extends InheritedWidget {
   final List<Item> itemsInCart;
