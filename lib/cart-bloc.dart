@@ -21,6 +21,10 @@ class CartWithItems extends ShoppingCartState {
   double get totalCost {
     return itemsInCart.fold(0.0, (sum, item) => sum + item.cost);
   }
+
+  List<Item> get uniqueItemsInCart {
+    return itemsInCart.toSet().toList();
+  }
 }
 
 class Waiting extends ShoppingCartState {
@@ -52,9 +56,5 @@ class ShoppingCartBloc extends Bloc<ShoppingCartEvent, ShoppingCartState> {
         _itemsInCart.clear();
         emit(InitialShoppingCartState());
       });
-  }
-
-  List<Item> get uniqueItemsInCart {
-    return _itemsInCart.toSet().toList();
   }
 }
